@@ -111,10 +111,10 @@
 
 <div id="edit"><img id="editImg" alt=""><div id="boxes"></div>
   <div id="nudge"><div class="g" id="nudges"></div>
-    <div class="bar"><button id="eShow">Show icons</button><button id="eMove">Move panel</button><button class="gold" id="eDone">Done</button></div></div>
+    <div class="bar"><button id="eShow">View: See-through</button><button id="eMove">Move panel</button><button class="gold" id="eDone">Done</button></div></div>
 </div>
 <script>
-const VERSION = "0.3";
+const VERSION = "0.4";
 document.getElementById('ver').textContent = 'v' + VERSION;
 const $ = s => document.querySelector(s);
 
@@ -160,11 +160,11 @@ let L = {...DEF}; try { Object.assign(L, JSON.parse(localStorage.getItem('aiLayo
 const save = () => { try { localStorage.setItem('aiLayout', JSON.stringify(L)); } catch (e) {} };
 let shown = null;   // the screen on show: [[slot]]
 
-function draw(home = $('#home')) {
+function draw(home = $('#home'), grid = shown) {
   home.innerHTML = '';
-  if (!shown) return;
+  if (!grid) return;
   const k = innerWidth / 402, size = L.size * k, cx = innerWidth / 2;
-  shown.forEach((row, r) => row.forEach((slot, c) => {
+  grid.forEach((row, r) => row.forEach((slot, c) => {
     const el = document.createElement('div'); el.className = 'slot';
     const w = L.colPitch * k;
     el.style.left = (cx + (c - 1.5) * L.colPitch * k - w / 2) + 'px'; el.style.width = w + 'px';
@@ -306,10 +306,16 @@ function matchShot(px) {
 }
 const NUDGES = [["top", "Up / down", -0.5, 0.5], ["rowPitch", "Row gap", -0.5, 0.5], ["colPitch", "Column gap", -0.5, 0.5],
                 ["size", "Icon size", -0.5, 0.5], ["labelGap", "Label gap", -0.5, 0.5]];
-let editIcons = false;
+// views over the screenshot: see-through icons in every spot (line them up with yours), yellow boxes, solid icons
+const VIEWS = [['see', 'See-through'], ['boxes', 'Boxes'], ['solid', 'Solid icons']];
+let view = 'see', sample = null;
 function drawBoxes() {
   const b = $('#boxes'), k = innerWidth / 402, s = L.size * k; b.innerHTML = '';
-  if (editIcons) { draw(b); return; }
+  b.style.opacity = view === 'see' ? 0.5 : 1;
+  if (view !== 'boxes') {
+    if (!sample) { const pool = shuffle(ICONS); sample = Array.from({length: 6}, (_, r) => pool.slice(r * 4, r * 4 + 4)); }
+    draw(b, sample); return;
+  }
   for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
     const i = document.createElement('i'), x = innerWidth / 2 + (c - 1.5) * L.colPitch * k - s / 2, y = (L.top + r * L.rowPitch) * k;
     i.style.cssText = `width:${s}px;height:${s}px;left:${x}px;top:${y}px`; b.appendChild(i);
@@ -330,12 +336,12 @@ async function openEditor() {
   let wall = null; if (!shot) { try { wall = await kv('wall'); } catch (e) {} }
   const src = shot || wall; $('#editImg').hidden = !src; if (src) $('#editImg').src = URL.createObjectURL(src);
   if (!shown) shown = screen('QUEEN', 'CLUBS');
-  editIcons = !shot; $('#eShow').textContent = editIcons ? 'Show boxes' : 'Show icons';
+  view = 'see'; $('#eShow').textContent = 'View: See-through';
   buildNudges(); drawBoxes(); draw();
   $('#set').classList.remove('on'); $('#edit').classList.add('on');
 }
-$('#eShow').onclick = () => { editIcons = !editIcons; $('#eShow').textContent = editIcons ? 'Show boxes' : 'Show icons';
-  drawBoxes(); };
+$('#eShow').onclick = () => { const i = (VIEWS.findIndex(v => v[0] === view) + 1) % VIEWS.length;
+  view = VIEWS[i][0]; $('#eShow').textContent = 'View: ' + VIEWS[i][1]; drawBoxes(); };
 $('#eMove').onclick = () => $('#nudge').classList.toggle('up');
 $('#eDone').onclick = () => { $('#edit').classList.remove('on'); openSettings(); };
 $('#adjust').onclick = openEditor;
@@ -355,9 +361,12 @@ $('#resetLayout').onclick = () => { L = {...DEF}; save(); openSettings(); draw()
 // ---- wallpaper: kept in IndexedDB (too big for localStorage)
 function db() { return new Promise((ok, no) => { const r = indexedDB.open('aicons', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); }); }
 async function kv(key, val) {
+  // (pictures are stored as bytes, not Blobs: some Safari modes refuse Blobs in IndexedDB)
+  if (val instanceof Blob) val = {type: val.type, bytes: await val.arrayBuffer()};
   const d = await db();
-  return new Promise((ok, no) => { const tx = d.transaction('kv', val === undefined ? 'readonly' : 'readwrite'), st = tx.objectStore('kv');
+  const got = await new Promise((ok, no) => { const tx = d.transaction('kv', val === undefined ? 'readonly' : 'readwrite'), st = tx.objectStore('kv');
     const r = val === undefined ? st.get(key) : val === null ? st.delete(key) : st.put(val, key); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); });
+  return got && got.bytes ? new Blob([got.bytes], {type: got.type}) : got;
 }
 async function showWall() {
   let b = null; try { b = await kv('wall'); } catch (e) {}
