@@ -16,7 +16,7 @@
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   html, body { margin: 0; height: 100%; overflow: hidden; background: #000; overscroll-behavior: none; touch-action: none;
     font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; }
-  #wall { position: fixed; inset: 0; background: #1c1c22 center / cover no-repeat; }
+  #wall { position: fixed; left: 0; right: 0; top: 0; height: 100vh; background: #1c1c22 center / cover no-repeat; }
   #home { position: fixed; inset: 0; }
   .slot { position: absolute; display: flex; flex-direction: column; align-items: center; }
   .icon { border-radius: 22.5%; background: #fff center / cover no-repeat; box-shadow: 0 1px 3px rgba(0,0,0,.18); }
@@ -53,11 +53,25 @@
   #set .row span { width: 96px; color: #ccc; } #set .row input[type=range] { flex: 1; } #set .row b { width: 40px; text-align: right; font-weight: 500; }
   #set .btn { display: inline-block; padding: 11px 16px; border-radius: 12px; background: #2c2c30; color: #fff; border: 0; font-size: 15px; margin: 4px 6px 4px 0; }
   #set .btn.gold { background: #c9a227; color: #111; font-weight: 600; }
-  #check { position: fixed; inset: 0; background: #000 center / 100% 100% no-repeat; display: none; }
-  #check.on { display: block; }
-  #check i { position: absolute; border: 2px solid #ffd60a; border-radius: 22.5%; }
-  #check div { position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 40px); text-align: center;
-    color: #fff; font-size: 15px; text-shadow: 0 1px 4px #000; }
+  /* layout editor: your screenshot (or wallpaper), yellow boxes where AIcons puts icons, nudge buttons */
+  #edit { position: fixed; inset: 0; background: #000; display: none; }
+  #edit.on { display: block; }
+  #edit > img { position: absolute; left: 0; top: 0; width: 100%; }
+  #edit #boxes { position: absolute; inset: 0; }
+  #edit #boxes i { position: absolute; border: 2px solid #ffd60a; border-radius: 22.5%; box-shadow: 0 0 0 1px rgba(0,0,0,.5); }
+  #edit #boxes b { position: absolute; height: 0; border-top: 2px dashed #ffd60a; }
+  #nudge { position: absolute; left: 8px; right: 8px; bottom: calc(env(safe-area-inset-bottom) + 8px); padding: 8px; border-radius: 18px;
+    background: rgba(20,20,24,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: #fff; }
+  #nudge.up { bottom: auto; top: calc(env(safe-area-inset-top) + 8px); }
+  #nudge .g { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  #nudge .n { display: flex; align-items: center; background: rgba(255,255,255,.1); border-radius: 12px; overflow: hidden; }
+  #nudge .n span { flex: 1; text-align: center; font-size: 11px; line-height: 1.2; color: #ccc; }
+  #nudge .n span em { display: block; font-style: normal; color: #fff; font-size: 13px; font-weight: 600; }
+  #nudge button { border: 0; background: transparent; color: #fff; font-size: 20px; width: 38px; height: 46px; }
+  #nudge button:active { background: rgba(255,255,255,.2); }
+  #nudge .bar { display: flex; gap: 6px; margin-top: 6px; }
+  #nudge .bar button { flex: 1; width: auto; height: 40px; font-size: 14px; border-radius: 12px; background: rgba(255,255,255,.1); }
+  #nudge .bar button.gold { background: #c9a227; color: #111; font-weight: 600; }
   #set .cards { font-size: 14px; color: #bbb; line-height: 1.6; }
 </style>
 </head>
@@ -84,13 +98,8 @@
     then pick it here. AIcons finds where your icons sit.</p>
   <label class="btn gold">Match my home screen<input type="file" accept="image/*" id="shotFile" hidden></label>
   <p id="matchMsg"></p>
-  <p>Or by hand: tap "Preview", compare with your real home screen, nudge.</p>
-  <div class="row"><span>From top</span><input type="range" id="top" min="40" max="260" step="1"><b></b></div>
-  <div class="row"><span>Row gap</span><input type="range" id="rowPitch" min="70" max="120" step=".5"><b></b></div>
-  <div class="row"><span>Column gap</span><input type="range" id="colPitch" min="65" max="100" step=".5"><b></b></div>
-  <div class="row"><span>Icon size</span><input type="range" id="size" min="44" max="76" step=".5"><b></b></div>
-  <div class="row"><span>Label gap</span><input type="range" id="labelGap" min="0" max="16" step=".5"><b></b></div>
-  <button class="btn" id="preview">Preview</button><button class="btn" id="resetLayout">Reset layout</button>
+  <p>Then nudge anything slightly out on the same screen. To nudge again later:</p>
+  <button class="btn" id="adjust">Adjust layout</button><button class="btn" id="resetLayout">Reset layout</button>
   <h2>How to perform</h2>
   <p>Open AIcons from its home-screen icon (so it fills the screen). It looks like an empty home screen.
     Tap the <b>top right corner</b> for the card grid, choose the suit and value: the icons spell it out.
@@ -100,9 +109,12 @@
   <p style="margin-top:24px"><button class="btn gold" id="done">Done</button></p>
 </div>
 
-<div id="check"></div>
+<div id="edit"><img id="editImg" alt=""><div id="boxes"></div>
+  <div id="nudge"><div class="g" id="nudges"></div>
+    <div class="bar"><button id="eShow">Show icons</button><button id="eMove">Move panel</button><button class="gold" id="eDone">Done</button></div></div>
+</div>
 <script>
-const VERSION = "0.2";
+const VERSION = "0.3";
 document.getElementById('ver').textContent = 'v' + VERSION;
 const $ = s => document.querySelector(s);
 
@@ -148,8 +160,8 @@ let L = {...DEF}; try { Object.assign(L, JSON.parse(localStorage.getItem('aiLayo
 const save = () => { try { localStorage.setItem('aiLayout', JSON.stringify(L)); } catch (e) {} };
 let shown = null;   // the screen on show: [[slot]]
 
-function draw() {
-  const home = $('#home'); home.innerHTML = '';
+function draw(home = $('#home')) {
+  home.innerHTML = '';
   if (!shown) return;
   const k = innerWidth / 402, size = L.size * k, cx = innerWidth / 2;
   shown.forEach((row, r) => row.forEach((slot, c) => {
@@ -172,7 +184,7 @@ function draw() {
     el.append(box, lab); home.appendChild(el);
   }));
 }
-addEventListener('resize', draw);
+addEventListener('resize', () => draw());
 
 // ---- card picker (top right)
 let suit = localStorage.getItem('aiSuit') || 'CLUBS';
@@ -200,10 +212,6 @@ document.addEventListener('click', e => { if (!$('#pick').contains(e.target) && 
 let lastTap = 0;
 $('#hotSet').addEventListener('click', () => { const t = Date.now(); if (t - lastTap < 400) openSettings(); lastTap = t; });
 function openSettings() {
-  ['top', 'rowPitch', 'colPitch', 'size', 'labelGap'].forEach(id => {
-    const r = $('#' + id); r.value = L[id]; r.nextElementSibling.textContent = L[id];
-    r.oninput = () => { L[id] = +r.value; r.nextElementSibling.textContent = r.value; save(); draw(); };
-  });
   $('#cards').innerHTML = SUITS.map(([s, sym]) => {
     const ok = VALUES.map((v, i) => canSpell(v, s) ? SHORT[i] : null).filter(Boolean);
     return `${sym} ${ok.length ? ok.join(' ') : '<span style="color:#666">none yet</span>'}`;
@@ -211,15 +219,50 @@ function openSettings() {
   $('#set').classList.add('on');
 }
 $('#done').onclick = () => $('#set').classList.remove('on');
-$('#preview').onclick = () => { shown = screen('QUEEN', 'CLUBS') || screen('ACE', 'CLUBS'); draw(); $('#set').classList.remove('on'); };
 // ---- match the layout from a screenshot of the real home screen. Icons have strong edges against the wallpaper:
 // sideways, the edge profile peaks at the 8 icon sides (4 columns, centred) → icon size and column gap; up and down,
 // at each row's top and bottom → first row and row gap. Measured in 402-wide units, like the layout itself.
-function matchShot(img) {
-  const W = 804, H = Math.round(img.height * W / img.width), u = W / 402;          // (2 px a unit: half-unit precision)
-  const c = document.createElement('canvas'); c.width = W; c.height = H;
-  const g = c.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, W, H);
-  const d = g.getImageData(0, 0, W, H).data;
+// The screenshot's pixels come from the PNG file itself, not a canvas: Safari's fingerprinting protection adds
+// noise to what a canvas reads back (and then offers "Reduce Protections"). Canvas only for other formats.
+async function pngPixels(file) {
+  const b = new Uint8Array(await file.arrayBuffer()), dv = new DataView(b.buffer);
+  if (dv.getUint32(0) !== 0x89504e47) return null;
+  let p = 8, w, h, depth, type, idat = [];
+  while (p < b.length) {
+    const len = dv.getUint32(p), kind = String.fromCharCode(...b.subarray(p + 4, p + 8));
+    if (kind === 'IHDR') { w = dv.getUint32(p + 8); h = dv.getUint32(p + 12); depth = b[p + 16]; type = b[p + 17]; if (b[p + 20]) return null; }
+    if (kind === 'IDAT') idat.push(b.subarray(p + 8, p + 8 + len));
+    if (kind === 'IEND') break;
+    p += 12 + len;
+  }
+  if (depth !== 8 || (type !== 2 && type !== 6)) return null;
+  const raw = new Uint8Array(await new Response(new Blob(idat).stream().pipeThrough(new DecompressionStream('deflate'))).arrayBuffer());
+  const ch = type === 6 ? 4 : 3, stride = w * ch, out = new Uint8Array(h * stride);
+  for (let y = 0; y < h; y++) {                                                     // (undo the PNG row filters)
+    const f = raw[y * (stride + 1)], src = y * (stride + 1) + 1, o = y * stride;
+    for (let i = 0; i < stride; i++) {
+      const a = i >= ch ? out[o + i - ch] : 0, up = y ? out[o - stride + i] : 0, c = y && i >= ch ? out[o - stride + i - ch] : 0;
+      let v = raw[src + i];
+      if (f === 1) v += a; else if (f === 2) v += up; else if (f === 3) v += (a + up) >> 1;
+      else if (f === 4) { const pp = a + up - c, pa = Math.abs(pp - a), pb = Math.abs(pp - up), pc = Math.abs(pp - c); v += pa <= pb && pa <= pc ? a : pb <= pc ? up : c; }
+      out[o + i] = v;
+    }
+  }
+  return {w, h, ch, data: out};
+}
+async function shotPixels(file) {
+  try { const px = await pngPixels(file); if (px) return px; } catch (e) {}
+  const img = new Image(); img.src = URL.createObjectURL(file); await img.decode();
+  const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const g = c.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0);
+  return {w: c.width, h: c.height, ch: 4, data: g.getImageData(0, 0, c.width, c.height).data};
+}
+function matchShot(px) {
+  const W = 804, H = Math.round(px.h * W / px.w), u = W / 402;                     // (2 px a unit: half-unit precision)
+  const d = new Uint8Array(W * H * 4);                                             // (nearest pixel: plenty for edges)
+  for (let y = 0; y < H; y++) { const sy = Math.min(px.h - 1, Math.round(y * px.h / H));
+    for (let x = 0; x < W; x++) { const s = (sy * px.w + Math.min(px.w - 1, Math.round(x * px.w / W))) * px.ch, o = (y * W + x) * 4;
+      d[o] = px.data[s]; d[o + 1] = px.data[s + 1]; d[o + 2] = px.data[s + 2]; } }
   const at = (x, y) => (y * W + x) * 4;
   const diff = (a, b) => Math.abs(d[a] - d[b]) + Math.abs(d[a + 1] - d[b + 1]) + Math.abs(d[a + 2] - d[b + 2]);
   const y0 = Math.round(H * 0.07), y1 = Math.round(H * 0.8);                      // (not the status bar or the dock)
@@ -238,35 +281,74 @@ function matchShot(img) {
     const cx = W / 2 + (k - 1.5) * pitch * u, xa = Math.round(cx - size * u * 0.4), xb = Math.round(cx + size * u * 0.4);
     for (let y = 1; y < H - 1; y++) for (let x = xa; x < xb; x++) Hp[y] += diff(at(x, y + 1), at(x, y - 1));
   }
-  let bestV = {score: -1};
-  for (let top = y0 / u; top <= 260; top += 0.5) for (let rp = 70; rp <= 120; rp += 0.5) {
-    let sc = 0;
-    for (let j = 0; (top + j * rp + size) * u < y1; j++) sc += Math.min(pk(Hp, (top + j * rp) * u), pk(Hp, (top + j * rp + size) * u));
-    if (sc > bestV.score) bestV = {score: sc, top, rp};
+  // (and the icons' sides: strong only from an icon's top to its bottom, not across the labels and gaps between rows,
+  // which top/bottom edges alone confuse with label text)
+  const S = new Float32Array(H), C = new Float64Array(H + 1);
+  for (let k = 0; k < 4; k++) for (const side of [-1, 1]) {
+    const x = Math.round(W / 2 + (k - 1.5) * pitch * u + side * size * u / 2);
+    for (let y = 0; y < H; y++) { let m = 0; for (let dx = -2; dx <= 2; dx++) m = Math.max(m, diff(at(x + dx + 1, y), at(x + dx - 1, y))); S[y] += m; }
+  }
+  for (let y = 0; y < H; y++) C[y + 1] = C[y] + S[y];
+  const mean = (a, b) => { a = Math.max(0, Math.round(a)); b = Math.min(H, Math.round(b)); return b > a ? (C[b] - C[a]) / (b - a) : 0; };
+  let eMax = 1; for (let y = y0; y < y1; y++) eMax = Math.max(eMax, Hp[y]);
+  let sMax = 1; for (let y = y0; y < y1; y++) sMax = Math.max(sMax, S[y]);
+  let bestV = {score: -Infinity};
+  for (let top = y0 / u; top <= 260; top += 0.5) for (let rp = Math.max(70, size + 15); rp <= 120; rp += 0.5) {
+    let sc = 0, n = 0;
+    for (let j = 0; (top + j * rp + size) * u < y1; j++, n++) {
+      const a = (top + j * rp) * u, b = a + size * u;
+      sc += (mean(a + 3, b - 3) - mean(b + 3, a + rp * u - 3)) / sMax                 // sides inside the icon, not below it
+          + Math.min(pk(Hp, a), pk(Hp, b)) / eMax;                                   // top and bottom edges
+    }
+    if (n && sc > bestV.score) bestV = {score: sc, top, rp};
   }
   return {size, colPitch: pitch, top: bestV.top, rowPitch: bestV.rp};
 }
-function showCheck(url, m) {
-  const ch = $('#check'), k = innerWidth / 402; ch.style.backgroundImage = `url("${url}")`; ch.innerHTML = '';
+const NUDGES = [["top", "Up / down", -0.5, 0.5], ["rowPitch", "Row gap", -0.5, 0.5], ["colPitch", "Column gap", -0.5, 0.5],
+                ["size", "Icon size", -0.5, 0.5], ["labelGap", "Label gap", -0.5, 0.5]];
+let editIcons = false;
+function drawBoxes() {
+  const b = $('#boxes'), k = innerWidth / 402, s = L.size * k; b.innerHTML = '';
+  if (editIcons) { draw(b); return; }
   for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
-    const i = document.createElement('i'), s = m.size * k;
-    i.style.cssText = `width:${s}px;height:${s}px;left:${innerWidth / 2 + (c - 1.5) * m.colPitch * k - s / 2}px;top:${(m.top + r * m.rowPitch) * k}px`;
-    ch.appendChild(i);
+    const i = document.createElement('i'), x = innerWidth / 2 + (c - 1.5) * L.colPitch * k - s / 2, y = (L.top + r * L.rowPitch) * k;
+    i.style.cssText = `width:${s}px;height:${s}px;left:${x}px;top:${y}px`; b.appendChild(i);
+    const line = document.createElement('b');                                   // (where the label starts)
+    line.style.cssText = `left:${x + s * 0.2}px;width:${s * 0.6}px;top:${y + s + L.labelGap * k}px`; b.appendChild(line);
   }
-  const t = document.createElement('div'); t.textContent = 'Yellow boxes should sit on your icons. Tap to go back.'; ch.appendChild(t);
-  ch.classList.add('on'); ch.onclick = () => ch.classList.remove('on');
 }
+function buildNudges() {
+  $('#nudges').innerHTML = NUDGES.map(([key, name]) => `<div class="n"><button data-k="${key}" data-d="-1">${key === 'top' ? '▲' : '−'}</button>
+    <span>${name}<em id="nv-${key}">${L[key]}</em></span><button data-k="${key}" data-d="1">${key === 'top' ? '▼' : '+'}</button></div>`).join('');
+  $('#nudges').querySelectorAll('button').forEach(b => b.onclick = e => {
+    e.stopPropagation(); const k = b.dataset.k; L[k] = Math.round((L[k] + 0.5 * b.dataset.d) * 2) / 2; save();
+    $('#nv-' + k).textContent = L[k]; drawBoxes(); draw();
+  });
+}
+async function openEditor() {
+  let shot = null; try { shot = await kv('shot'); } catch (e) {}
+  let wall = null; if (!shot) { try { wall = await kv('wall'); } catch (e) {} }
+  const src = shot || wall; $('#editImg').hidden = !src; if (src) $('#editImg').src = URL.createObjectURL(src);
+  if (!shown) shown = screen('QUEEN', 'CLUBS');
+  editIcons = !shot; $('#eShow').textContent = editIcons ? 'Show boxes' : 'Show icons';
+  buildNudges(); drawBoxes(); draw();
+  $('#set').classList.remove('on'); $('#edit').classList.add('on');
+}
+$('#eShow').onclick = () => { editIcons = !editIcons; $('#eShow').textContent = editIcons ? 'Show boxes' : 'Show icons';
+  drawBoxes(); };
+$('#eMove').onclick = () => $('#nudge').classList.toggle('up');
+$('#eDone').onclick = () => { $('#edit').classList.remove('on'); openSettings(); };
+$('#adjust').onclick = openEditor;
 $('#shotFile').onchange = e => {
   const f = e.target.files[0]; if (!f) return;
-  const url = URL.createObjectURL(f), img = new Image();
   $('#matchMsg').textContent = 'Looking for your icons…';
-  img.onload = () => setTimeout(() => {
-    const m = matchShot(img);
-    Object.assign(L, m); save(); openSettings(); draw();
-    $('#matchMsg').textContent = `Matched: icons ${m.size}, columns ${m.colPitch} apart, first row at ${m.top}, rows ${m.rowPitch} apart.`;
-    showCheck(url, m); e.target.value = '';
+  setTimeout(async () => {
+    let m; try { m = matchShot(await shotPixels(f)); } catch (err) { $('#matchMsg').textContent = "Couldn't read that picture: " + err.message; return; }
+    Object.assign(L, m); save(); draw();
+    try { await kv('shot', f); } catch (_) {}                                  // (kept for "Adjust layout")
+    $('#matchMsg').textContent = 'Matched. Yellow boxes should sit on your icons: nudge any that are out.';
+    e.target.value = ''; openEditor();
   }, 30);
-  img.src = url;
 };
 $('#resetLayout').onclick = () => { L = {...DEF}; save(); openSettings(); draw(); };
 
