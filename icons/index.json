@@ -1,16 +1,6 @@
 [
  {
   "letters": "A",
-  "app": "Acrobat Reader: PDF Editor",
-  "file": "A_AcrobatReader.jpg",
-  "bundle": "com.adobe.Adobe-Reader",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/acrobat-reader-pdf-editor/id469337564",
-  "term": "adobe acrobat reader",
-  "label": "Acrobat"
- },
- {
-  "letters": "A",
   "app": "Airbnb",
   "file": "A_Airbnb.jpg",
   "bundle": "com.airbnb.app",
@@ -60,16 +50,6 @@
   "label": "Coinbase"
  },
  {
-  "letters": "C",
-  "app": "Crunchyroll",
-  "file": "C_Crunchyroll.jpg",
-  "bundle": "com.crunchyroll.iphone",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/crunchyroll/id329913454",
-  "term": "crunchyroll",
-  "label": "Crunchyroll"
- },
- {
   "letters": "D",
   "app": "Dailymotion: Social Videos",
   "file": "D_Dailymotion.jpg",
@@ -90,36 +70,6 @@
   "label": "DoorDash"
  },
  {
-  "letters": "E",
-  "app": "Eurostar: Train travel & Hotel",
-  "file": "E_Eurostar.jpg",
-  "bundle": "com.eurostar.app",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/eurostar-train-travel-hotel/id453671246",
-  "term": "eurostar",
-  "label": "Eurostar"
- },
- {
-  "letters": "E",
-  "app": "Microsoft Edge",
-  "file": "E_MicrosoftEdge.jpg",
-  "bundle": "com.microsoft.msedge",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/microsoft-edge/id1288723196",
-  "term": "microsoft edge",
-  "label": "Edge"
- },
- {
-  "letters": "F",
-  "app": "Le Figaro Actualités en direct",
-  "file": "F_LeFigaroActualitsendirec.jpg",
-  "bundle": "com.lefigaro.Figaro.fr",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/le-figaro-actualit%C3%A9s-en-direct/id319557427",
-  "term": "le figaro",
-  "label": "Figaro"
- },
- {
   "letters": "F",
   "app": "Facebook",
   "file": "F_Facebook.jpg",
@@ -128,26 +78,6 @@
   "url": "https://apps.apple.com/gb/app/facebook/id284882215",
   "term": "facebook",
   "label": "Facebook"
- },
- {
-  "letters": "F",
-  "app": "Flipboard: The Social Magazine",
-  "file": "F_Flipboard.jpg",
-  "bundle": "com.flipboard.flipboard-ipad",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/flipboard-the-social-magazine/id358801284",
-  "term": "flipboard",
-  "label": "Flipboard"
- },
- {
-  "letters": "F",
-  "app": "Fiverr - Freelance Services",
-  "file": "F_Fiverr.jpg",
-  "bundle": "com.fiverr.fiverr",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/fiverr-freelance-services/id346080608",
-  "term": "fiverr",
-  "label": "Fiverr"
  },
  {
   "letters": "G",
@@ -673,16 +603,6 @@
   "label": "EE"
  },
  {
-  "letters": "E",
-  "term": "eurofans",
-  "app": "Eurofans Radio",
-  "file": "E_EurofansRadio.jpg",
-  "bundle": "gr.radio.eurofansradio",
-  "store": "gb",
-  "url": "https://apps.apple.com/gb/app/eurofans-radio/id1190933313",
-  "label": "Eurofans"
- },
- {
   "letters": "IG",
   "term": "ig trading",
   "app": "IG: Trading. Investing. Crypto",
@@ -711,5 +631,155 @@
   "store": "gb",
   "url": "https://apps.apple.com/gb/app/enuygun-u%C3%A7ak-otel-otob%C3%BCs-ara%C3%A7/id669210250",
   "label": "ENUYGUN"
+ },
+ {
+  "letters": "Y",
+  "term": "yahoo mail",
+  "label": "Yahoo Mail",
+  "app": "Yahoo Mail - Organised Email",
+  "file": "Y_YahooMail.jpg",
+  "bundle": "com.yahoo.Aerogram",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/yahoo-mail-organised-email/id577586159"
+ },
+ {
+  "letters": "EN",
+  "term": "entur",
+  "label": "Entur",
+  "app": "Entur - Travel and tickets",
+  "file": "EN_Entur.jpg",
+  "bundle": "no.entur",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/entur-travel-and-tickets/id1225135707"
+ },
+ {
+  "letters": "E",
+  "term": "expensify",
+  "label": "Expensify",
+  "app": "Expensify - Travel & Expense",
+  "file": "E_Expensify.jpg",
+  "bundle": "com.expensify.expensifylite",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/expensify-travel-expense/id471713959"
+ },
+ {
+  "letters": "RTS",
+  "term": "rts actualites sport",
+  "label": "RTS",
+  "app": "RTS - Actualités & Sport",
+  "file": "RTS_RTS.jpg",
+  "bundle": "ch.rts.rtsinfo",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/rts-actualit%C3%A9s-sport/id587776847"
+ },
+ {
+  "letters": "A",
+  "term": "argos",
+  "label": "Argos",
+  "app": "Argos - Shop Tech, Toys & More",
+  "file": "A_Argos.jpg",
+  "bundle": "uk.co.argos.argosapp",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/argos-shop-tech-toys-more/id370371087"
+ },
+ {
+  "letters": "A",
+  "term": "adobe express",
+  "label": "Adobe Express",
+  "app": "Adobe Express: Create Anything",
+  "file": "A_AdobeExpress.jpg",
+  "bundle": "com.adobe.post",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/adobe-express-create-anything/id1051937863"
+ },
+ {
+  "letters": "A",
+  "term": "arc search",
+  "label": "Arc Search",
+  "app": "Arc Search — Find it, Faster",
+  "file": "A_ArcSearchFinditFaster.jpg",
+  "bundle": "company.thebrowser.ArcMobile2",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/arc-search-find-it-faster/id6472513080"
+ },
+ {
+  "letters": "E",
+  "term": "edenred spain myedenred",
+  "label": "MyEdenred",
+  "app": "Edenred Spain - MyEdenred",
+  "file": "E_EdenredSpain.jpg",
+  "bundle": "com.edenred.spain",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/edenred-spain-myedenred/id597420333"
+ },
+ {
+  "letters": "E",
+  "term": "l'equipe",
+  "label": "L'Équipe",
+  "app": "L’EQUIPE - live, sport, tv",
+  "file": "E_LEQUIPE.jpg",
+  "bundle": "fr.airweb.EFR",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/lequipe-live-sport-tv/id318133983"
+ },
+ {
+  "letters": "E",
+  "term": "ecosia",
+  "label": "Ecosia",
+  "app": "Ecosia: Search to plant trees",
+  "file": "E_Ecosia.jpg",
+  "bundle": "com.ecosia.ecosiaapp",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/ecosia-search-to-plant-trees/id670881887"
+ },
+ {
+  "letters": "E",
+  "term": "etihad",
+  "label": "Reward Card",
+  "app": "Reward Card",
+  "file": "E_RewardCard.jpg",
+  "bundle": "com.wpointspay.pointspay",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/reward-card/id509954545"
+ },
+ {
+  "letters": "F",
+  "term": "feedly",
+  "label": "Feedly",
+  "app": "Feedly - Smart News Reader",
+  "file": "F_Feedly.jpg",
+  "bundle": "com.devhd.feedly",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/feedly-smart-news-reader/id396069556"
+ },
+ {
+  "letters": "F",
+  "term": "fanatics",
+  "label": "Fanatics",
+  "app": "Fanatics Collect",
+  "file": "F_FanaticsCollect.jpg",
+  "bundle": "com.pwcc.mobile",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/fanatics-collect/id1546059696"
+ },
+ {
+  "letters": "C",
+  "term": "coursera",
+  "label": "Coursera",
+  "app": "Coursera: Grow your career",
+  "file": "C_Coursera.jpg",
+  "bundle": "org.coursera.coursera",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/coursera-grow-your-career/id736535961"
+ },
+ {
+  "letters": "C",
+  "term": "curve pay",
+  "label": "Curve",
+  "app": "Curve Pay — Wallet & Cashback",
+  "file": "C_CurvePayWalletCashback.jpg",
+  "bundle": "com.imaginecurve.curve",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/curve-pay-wallet-cashback/id1049397112"
  }
 ]
