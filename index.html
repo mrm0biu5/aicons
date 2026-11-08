@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AIcons">
+<meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>AIcons</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; overscroll-behavior: none; touch-action: none;
+    font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; }
+  #wall { position: fixed; inset: 0; background: #1c1c22 center / cover no-repeat; }
+  #home { position: fixed; inset: 0; }
+  .slot { position: absolute; display: flex; flex-direction: column; align-items: center; }
+  .icon { border-radius: 22.5%; background: #fff center / cover no-repeat; box-shadow: 0 1px 3px rgba(0,0,0,.18); }
+  .folder { border-radius: 22.5%; background: rgba(255,255,255,.28); -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6); display: grid; grid-template-columns: repeat(3, 1fr); align-content: start; }
+  .folder i { border-radius: 22.5%; background: center / cover no-repeat; }
+  .label { color: #fff; font-size: 12px; letter-spacing: -.1px; text-align: center; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; text-shadow: 0 0 6px rgba(0,0,0,.35), 0 1px 1px rgba(0,0,0,.25); }
+
+  /* hidden hot spots: top right = card picker, double tap bottom middle = settings */
+  #hotPick { position: fixed; top: 0; right: 0; width: 90px; height: 70px; }
+  #hotSet { position: fixed; bottom: 0; left: 50%; width: 140px; margin-left: -70px; height: 90px; }
+
+  /* card picker: small and dim, quick to hit */
+  #pick { position: fixed; top: calc(env(safe-area-inset-top) + 8px); right: 8px; padding: 8px; border-radius: 16px;
+    background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); display: none; }
+  #pick.on { display: block; }
+  #pick .grid { display: grid; grid-template-columns: repeat(4, 46px); gap: 6px; }
+  #pick button { height: 46px; border: 0; border-radius: 10px; background: rgba(255,255,255,.12); color: #fff; font-size: 18px; font-weight: 600; }
+  #pick button:disabled { opacity: .2; }
+  #pick .suits { display: flex; gap: 6px; margin-bottom: 6px; }
+  #pick .suits button { flex: 1; font-size: 20px; }
+  #pick .suits button.sel { background: rgba(255,255,255,.4); }
+  #pick .clear { grid-column: span 2; font-size: 13px; font-weight: 500; }
+
+  /* settings */
+  #set { position: fixed; inset: 0; background: #111; color: #eee; overflow-y: auto; touch-action: pan-y; display: none;
+    padding: calc(env(safe-area-inset-top) + 14px) 18px calc(env(safe-area-inset-bottom) + 30px); }
+  #set.on { display: block; }
+  #set h1 { font-size: 24px; margin: 4px 0 2px; } #set .ver { color: #888; font-size: 13px; }
+  #set h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: #888; margin: 22px 0 8px; }
+  #set p { color: #aaa; font-size: 14px; line-height: 1.4; margin: 6px 0; }
+  #set .row { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-size: 15px; }
+  #set .row span { width: 96px; color: #ccc; } #set .row input[type=range] { flex: 1; } #set .row b { width: 40px; text-align: right; font-weight: 500; }
+  #set .btn { display: inline-block; padding: 11px 16px; border-radius: 12px; background: #2c2c30; color: #fff; border: 0; font-size: 15px; margin: 4px 6px 4px 0; }
+  #set .btn.gold { background: #c9a227; color: #111; font-weight: 600; }
+  #set .cards { font-size: 14px; color: #bbb; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div id="wall"></div>
+<div id="home"></div>
+<div id="hotPick"></div>
+<div id="hotSet"></div>
+
+<div id="pick">
+  <div class="suits" id="suits"></div>
+  <div class="grid" id="values"></div>
+</div>
+
+<div id="set">
+  <h1>AIcons</h1><div class="ver" id="ver"></div>
+  <h2>Wallpaper</h2>
+  <p>Pick your home screen wallpaper image (not a screenshot: the real clock shows on top). Best: the same picture
+    as your actual wallpaper, saved to Photos.</p>
+  <label class="btn gold">Choose wallpaper<input type="file" accept="image/*" id="wallFile" hidden></label>
+  <button class="btn" id="wallClear">Plain dark</button>
+  <h2>Layout</h2>
+  <p>Match the icons to your real home screen: tap "Preview", compare with a screenshot, nudge.</p>
+  <div class="row"><span>From top</span><input type="range" id="top" min="40" max="260" step="1"><b></b></div>
+  <div class="row"><span>Row gap</span><input type="range" id="rowPitch" min="70" max="120" step=".5"><b></b></div>
+  <div class="row"><span>Column gap</span><input type="range" id="colPitch" min="65" max="100" step=".5"><b></b></div>
+  <div class="row"><span>Icon size</span><input type="range" id="size" min="44" max="76" step=".5"><b></b></div>
+  <div class="row"><span>Label gap</span><input type="range" id="labelGap" min="0" max="16" step=".5"><b></b></div>
+  <button class="btn" id="preview">Preview</button><button class="btn" id="resetLayout">Reset layout</button>
+  <h2>How to perform</h2>
+  <p>Open AIcons from its home-screen icon (so it fills the screen). It looks like an empty home screen.
+    Tap the <b>top right corner</b> for the card grid, choose the suit and value: the icons spell it out.
+    Tap the top right again to change or clear. <b>Double tap the bottom middle</b> for these settings.</p>
+  <h2>Cards it can spell</h2>
+  <div class="cards" id="cards"></div>
+  <p style="margin-top:24px"><button class="btn gold" id="done">Done</button></p>
+</div>
+
+<script>
+const VERSION = "0.1";
+document.getElementById('ver').textContent = 'v' + VERSION;
+const $ = s => document.querySelector(s);
+
+// ---- the icons (icons/index.json from backstage/aicons/fetch.py)
+let ICONS = [];
+const VALUES = ["ACE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"];
+const SHORT = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+const SUITS = [["CLUBS","♣"],["HEARTS","♥"],["SPADES","♠"],["DIAMONDS","♦"]];
+const FOLDERS = ["Games","House","Utilities","Travel","Social","Finance","Shopping","Music","Health","Photo","Work","Kids","News","Food"];
+const COLS = 4;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+// ways to write a word in at most 4 icons ("THREE" → T H R EE)
+function splits(word) {
+  const pieces = new Set(ICONS.flatMap(i => i.reads)), out = [];
+  (function go(rest, so) {
+    if (!rest) { out.push(so); return; }
+    if (so.length === COLS) return;
+    for (let n = 1; n <= Math.min(4, rest.length); n++) { const p = rest.slice(0, n); if (pieces.has(p)) go(rest.slice(n), [...so, p]); }
+  })(word, []);
+  return out;
+}
+// the screen for a card: value / folder O F folder / suit, a different app everywhere (null if impossible)
+function screen(value, suit) {
+  for (let t = 0; t < 60; t++) {
+    const used = new Set();
+    const pick = p => { const a = shuffle(ICONS.filter(i => i.reads.includes(p) && !used.has(i)))[0]; if (a) used.add(a); return a; };
+    const row = w => { const s = shuffle(splits(w))[0]; if (!s) return null; const r = s.map(pick); return r.every(Boolean) ? r : null; };
+    const top = row(value), of = row("OF"), bottom = row(suit);
+    if (!top || !of || !bottom || of.length !== 2) continue;
+    const names = shuffle(FOLDERS);
+    const folder = () => ({folder: names.pop(), apps: shuffle(ICONS.filter(i => !used.has(i))).slice(0, 4 + (Math.random() * 6 | 0))});
+    while (top.length < COLS) top.push(folder());
+    return [top, [folder(), ...of, folder()], bottom];
+  }
+  return null;
+}
+const canSpell = (v, s) => { const ok = splits(v).length && splits(s).length; return ok && !!screen(v, s); };
+
+// ---- layout (points; defaults measured from an iPhone 18 Pro home screen, 402 wide; scaled to this phone)
+const DEF = {top: 132, rowPitch: 88.3, colPitch: 81.5, size: 55.5, labelGap: 5};
+let L = {...DEF}; try { Object.assign(L, JSON.parse(localStorage.getItem('aiLayout') || '{}')); } catch (e) {}
+const save = () => { try { localStorage.setItem('aiLayout', JSON.stringify(L)); } catch (e) {} };
+let shown = null;   // the screen on show: [[slot]]
+
+function draw() {
+  const home = $('#home'); home.innerHTML = '';
+  if (!shown) return;
+  const k = innerWidth / 402, size = L.size * k, cx = innerWidth / 2;
+  shown.forEach((row, r) => row.forEach((slot, c) => {
+    const el = document.createElement('div'); el.className = 'slot';
+    const w = L.colPitch * k;
+    el.style.left = (cx + (c - 1.5) * L.colPitch * k - w / 2) + 'px'; el.style.width = w + 'px';
+    el.style.top = (L.top * k + r * L.rowPitch * k) + 'px';
+    let box;
+    if (slot.folder) {
+      box = document.createElement('div'); box.className = 'folder';
+      const m = size * 0.11, g = size * 0.06, mini = (size - 2 * m - 2 * g) / 3;
+      box.style.cssText = `width:${size}px;height:${size}px;padding:${m}px;gap:${g}px`;
+      slot.apps.slice(0, 9).forEach(a => { const i = document.createElement('i'); i.style.cssText = `width:${mini}px;height:${mini}px;background-image:url("icons/${a.file}")`; box.appendChild(i); });
+    } else {
+      box = document.createElement('div'); box.className = 'icon';
+      box.style.cssText = `width:${size}px;height:${size}px;background-image:url("icons/${slot.file}")`;
+    }
+    const lab = document.createElement('div'); lab.className = 'label'; lab.textContent = slot.folder || slot.label;
+    lab.style.marginTop = L.labelGap * k + 'px'; lab.style.maxWidth = w + 'px';
+    el.append(box, lab); home.appendChild(el);
+  }));
+}
+addEventListener('resize', draw);
+
+// ---- card picker (top right)
+let suit = localStorage.getItem('aiSuit') || 'CLUBS';
+function buildPicker() {
+  $('#suits').innerHTML = ''; $('#values').innerHTML = '';
+  SUITS.forEach(([s, sym]) => {
+    const b = document.createElement('button'); b.textContent = sym; b.className = s === suit ? 'sel' : '';
+    b.disabled = !VALUES.some(v => canSpell(v, s));
+    b.onclick = e => { e.stopPropagation(); suit = s; try { localStorage.setItem('aiSuit', s); } catch (_) {} buildPicker(); };
+    $('#suits').appendChild(b);
+  });
+  VALUES.forEach((v, i) => {
+    const b = document.createElement('button'); b.textContent = SHORT[i]; b.disabled = !canSpell(v, suit);
+    b.onclick = e => { e.stopPropagation(); shown = screen(v, suit); draw(); $('#pick').classList.remove('on'); };
+    $('#values').appendChild(b);
+  });
+  const c = document.createElement('button'); c.className = 'clear'; c.textContent = 'Clear';
+  c.onclick = e => { e.stopPropagation(); shown = null; draw(); $('#pick').classList.remove('on'); };
+  $('#values').appendChild(c);
+}
+$('#hotPick').onclick = () => { $('#pick').classList.toggle('on'); };
+document.addEventListener('click', e => { if (!$('#pick').contains(e.target) && e.target !== $('#hotPick')) $('#pick').classList.remove('on'); });
+
+// ---- settings (double tap bottom middle)
+let lastTap = 0;
+$('#hotSet').addEventListener('click', () => { const t = Date.now(); if (t - lastTap < 400) openSettings(); lastTap = t; });
+function openSettings() {
+  ['top', 'rowPitch', 'colPitch', 'size', 'labelGap'].forEach(id => {
+    const r = $('#' + id); r.value = L[id]; r.nextElementSibling.textContent = L[id];
+    r.oninput = () => { L[id] = +r.value; r.nextElementSibling.textContent = r.value; save(); draw(); };
+  });
+  $('#cards').innerHTML = SUITS.map(([s, sym]) => {
+    const ok = VALUES.map((v, i) => canSpell(v, s) ? SHORT[i] : null).filter(Boolean);
+    return `${sym} ${ok.length ? ok.join(' ') : '<span style="color:#666">none yet</span>'}`;
+  }).join('<br>');
+  $('#set').classList.add('on');
+}
+$('#done').onclick = () => $('#set').classList.remove('on');
+$('#preview').onclick = () => { shown = screen('QUEEN', 'CLUBS') || screen('ACE', 'CLUBS'); draw(); $('#set').classList.remove('on'); };
+$('#resetLayout').onclick = () => { L = {...DEF}; save(); openSettings(); draw(); };
+
+// ---- wallpaper: kept in IndexedDB (too big for localStorage)
+function db() { return new Promise((ok, no) => { const r = indexedDB.open('aicons', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); }); }
+async function kv(key, val) {
+  const d = await db();
+  return new Promise((ok, no) => { const tx = d.transaction('kv', val === undefined ? 'readonly' : 'readwrite'), st = tx.objectStore('kv');
+    const r = val === undefined ? st.get(key) : val === null ? st.delete(key) : st.put(val, key); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); });
+}
+async function showWall() {
+  let b = null; try { b = await kv('wall'); } catch (e) {}
+  $('#wall').style.backgroundImage = b ? `url("${URL.createObjectURL(b)}")` : '';
+}
+$('#wallFile').onchange = async e => { const f = e.target.files[0]; if (!f) return; try { await kv('wall', f); } catch (_) {} showWall(); };
+$('#wallClear').onclick = async () => { try { await kv('wall', null); } catch (_) {} showWall(); };
+
+// ---- start
+fetch('icons/index.json', {cache: 'no-cache'}).then(r => r.json()).then(list => {
+  ICONS = list.map(d => ({file: d.file, label: d.label || '', reads: [d.letters, ...(d.also || [])].map(s => s.toUpperCase())}));
+  window.preload = ICONS.map(i => { const im = new Image(); im.src = 'icons/' + i.file; return im; });   // (kept loaded: no blank icons at the reveal)
+  buildPicker();
+});
+showWall();
+// first time: no wallpaper yet → settings
+kv('wall').then(b => { if (!b && !localStorage.getItem('aiSeen')) { try { localStorage.setItem('aiSeen', '1'); } catch (_) {} openSettings(); } }).catch(() => {});
+</script>
+</body>
+</html>

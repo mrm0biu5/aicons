@@ -1,0 +1,11 @@
+{
+  "name": "AIcons",
+  "short_name": "AIcons",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [{ "src": "icon-180.png", "sizes": "180x180", "type": "image/png" }]
+}

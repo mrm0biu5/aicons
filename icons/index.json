@@ -1,0 +1,715 @@
+[
+ {
+  "letters": "A",
+  "app": "Acrobat Reader: PDF Editor",
+  "file": "A_AcrobatReader.jpg",
+  "bundle": "com.adobe.Adobe-Reader",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/acrobat-reader-pdf-editor/id469337564",
+  "term": "adobe acrobat reader",
+  "label": "Acrobat"
+ },
+ {
+  "letters": "A",
+  "app": "Airbnb",
+  "file": "A_Airbnb.jpg",
+  "bundle": "com.airbnb.app",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/airbnb/id401626263",
+  "term": "airbnb",
+  "label": "Airbnb"
+ },
+ {
+  "letters": "B",
+  "app": "Microsoft Bing Search",
+  "file": "B_MicrosoftBingSearch.jpg",
+  "bundle": "com.microsoft.bing",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/microsoft-bing-search/id345323231",
+  "term": "microsoft bing",
+  "label": "Bing"
+ },
+ {
+  "letters": "B",
+  "app": "Behance – Creative Portfolios",
+  "file": "B_BehanceCreativePortfolio.jpg",
+  "bundle": "com.behance.Behance",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/behance-creative-portfolios/id489667151",
+  "term": "behance",
+  "label": "Behance"
+ },
+ {
+  "letters": "C",
+  "app": "ChargePoint®",
+  "file": "C_ChargePoint.jpg",
+  "bundle": "com.coulomb.ChargePoint",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/chargepoint/id356866743",
+  "term": "chargepoint",
+  "label": "ChargePoint"
+ },
+ {
+  "letters": "C",
+  "app": "Coinbase: Buy BTC, ETH, SOL",
+  "file": "C_Coinbase.jpg",
+  "bundle": "com.vilcsak.bitcoin2",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/coinbase-buy-btc-eth-sol/id886427730",
+  "term": "coinbase",
+  "label": "Coinbase"
+ },
+ {
+  "letters": "C",
+  "app": "Crunchyroll",
+  "file": "C_Crunchyroll.jpg",
+  "bundle": "com.crunchyroll.iphone",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/crunchyroll/id329913454",
+  "term": "crunchyroll",
+  "label": "Crunchyroll"
+ },
+ {
+  "letters": "D",
+  "app": "Dailymotion: Social Videos",
+  "file": "D_Dailymotion.jpg",
+  "bundle": "com.dailymotion.dailymotion",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/dailymotion-social-videos/id336978041",
+  "term": "dailymotion",
+  "label": "Dailymotion"
+ },
+ {
+  "letters": "D",
+  "app": "DoorDash - Food Delivery",
+  "file": "D_DoorDash.jpg",
+  "bundle": "doordash.DoorDashConsumer",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/doordash-food-delivery/id719972451",
+  "term": "doordash",
+  "label": "DoorDash"
+ },
+ {
+  "letters": "E",
+  "app": "Eurostar: Train travel & Hotel",
+  "file": "E_Eurostar.jpg",
+  "bundle": "com.eurostar.app",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/eurostar-train-travel-hotel/id453671246",
+  "term": "eurostar",
+  "label": "Eurostar"
+ },
+ {
+  "letters": "E",
+  "app": "Microsoft Edge",
+  "file": "E_MicrosoftEdge.jpg",
+  "bundle": "com.microsoft.msedge",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/microsoft-edge/id1288723196",
+  "term": "microsoft edge",
+  "label": "Edge"
+ },
+ {
+  "letters": "F",
+  "app": "Le Figaro Actualités en direct",
+  "file": "F_LeFigaroActualitsendirec.jpg",
+  "bundle": "com.lefigaro.Figaro.fr",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/le-figaro-actualit%C3%A9s-en-direct/id319557427",
+  "term": "le figaro",
+  "label": "Figaro"
+ },
+ {
+  "letters": "F",
+  "app": "Facebook",
+  "file": "F_Facebook.jpg",
+  "bundle": "com.facebook.Facebook",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/facebook/id284882215",
+  "term": "facebook",
+  "label": "Facebook"
+ },
+ {
+  "letters": "F",
+  "app": "Flipboard: The Social Magazine",
+  "file": "F_Flipboard.jpg",
+  "bundle": "com.flipboard.flipboard-ipad",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/flipboard-the-social-magazine/id358801284",
+  "term": "flipboard",
+  "label": "Flipboard"
+ },
+ {
+  "letters": "F",
+  "app": "Fiverr - Freelance Services",
+  "file": "F_Fiverr.jpg",
+  "bundle": "com.fiverr.fiverr",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/fiverr-freelance-services/id346080608",
+  "term": "fiverr",
+  "label": "Fiverr"
+ },
+ {
+  "letters": "G",
+  "app": "Google - More ways to search",
+  "file": "G_Google.jpg",
+  "bundle": "com.google.GoogleMobile",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/google-more-ways-to-search/id284815942",
+  "term": "google",
+  "label": "Google"
+ },
+ {
+  "letters": "G",
+  "app": "Grammarly: AI Keyboard & Voice",
+  "file": "G_Grammarly.jpg",
+  "bundle": "com.grammarly.keyboard",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/grammarly-ai-keyboard-voice/id1158877342",
+  "term": "grammarly",
+  "label": "Grammarly"
+ },
+ {
+  "letters": "G",
+  "app": "Goodreads: Book Tracker & More",
+  "file": "G_Goodreads.jpg",
+  "bundle": "com.goodreads.Goodreads",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/goodreads-book-tracker-more/id355833469",
+  "term": "goodreads",
+  "label": "Goodreads"
+ },
+ {
+  "letters": "H",
+  "app": "Hinge Dating App: Meet & Date",
+  "file": "H_HingeDatingApp.jpg",
+  "bundle": "co.hinge.mobile.ios",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/hinge-dating-app-meet-date/id595287172",
+  "term": "hinge",
+  "label": "Hinge"
+ },
+ {
+  "letters": "H",
+  "app": "Hotels.com: Book Hotel Deals",
+  "file": "H_Hotelscom.jpg",
+  "bundle": "com.hotels.HotelsNearMe",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/hotels-com-book-hotel-deals/id284971959",
+  "term": "hotels.com",
+  "label": "Hotels.com"
+ },
+ {
+  "letters": "H",
+  "app": "Houzz Home Design & Renovation",
+  "file": "H_HouzzHomeDesignRenovatio.jpg",
+  "bundle": "com.houzz.app",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/houzz-home-design-renovation/id399563465",
+  "term": "houzz",
+  "label": "Houzz"
+ },
+ {
+  "letters": "I",
+  "app": "Indeed Job Search",
+  "file": "I_IndeedJobSearch.jpg",
+  "bundle": "com.indeed.JobSearch",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/indeed-job-search/id309735670",
+  "term": "indeed job search",
+  "label": "Indeed"
+ },
+ {
+  "letters": "J",
+  "app": "Joplin",
+  "file": "J_Joplin.jpg",
+  "bundle": "net.cozic.joplin",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/joplin/id1315599797",
+  "term": "joplin",
+  "label": "Joplin"
+ },
+ {
+  "letters": "K",
+  "app": "Klarna: Smarter everyday money",
+  "file": "K_Klarna.jpg",
+  "bundle": "com.klarna.app",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/klarna-smarter-everyday-money/id1115120118",
+  "term": "klarna",
+  "label": "Klarna"
+ },
+ {
+  "letters": "K",
+  "app": "KAYAK: Flights, Hotels & Cars",
+  "file": "K_KAYAK.jpg",
+  "bundle": "com.kayak.travel",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/kayak-flights-hotels-cars/id305204535",
+  "term": "kayak",
+  "label": "KAYAK"
+ },
+ {
+  "letters": "K",
+  "app": "Kickstarter: Projects You Love",
+  "file": "K_Kickstarter.jpg",
+  "bundle": "com.kickstarter.kickstarter",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/kickstarter-projects-you-love/id596961532",
+  "term": "kickstarter",
+  "label": "Kickstarter"
+ },
+ {
+  "letters": "L",
+  "app": "Dictionary Linguee",
+  "file": "L_DictionaryLinguee.jpg",
+  "bundle": "com.linguee.linguee",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/dictionary-linguee/id338225335",
+  "term": "linguee",
+  "label": "Linguee"
+ },
+ {
+  "letters": "L",
+  "app": "Lexus Link+",
+  "file": "L_LexusLink.jpg",
+  "bundle": "com.lexus.oneapp.eu",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/lexus-link/id1618744308",
+  "term": "lexus",
+  "label": "Lexus"
+ },
+ {
+  "letters": "M",
+  "app": "McDonald’s U.K.",
+  "file": "M_McDonaldsUK.jpg",
+  "bundle": "com.mcdonalds.gma.uk",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/mcdonalds-u-k/id1082476620",
+  "term": "mcdonald's",
+  "label": "McDonald's"
+ },
+ {
+  "letters": "M",
+  "app": "Monzo Bank - Mobile Banking",
+  "file": "M_MonzoBank.jpg",
+  "bundle": "io.b2a.BankProd",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/monzo-bank-mobile-banking/id1052238659",
+  "term": "monzo",
+  "label": "Monzo"
+ },
+ {
+  "letters": "N",
+  "app": "Netflix",
+  "file": "N_Netflix.jpg",
+  "bundle": "com.netflix.Netflix",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/netflix/id363590051",
+  "term": "netflix",
+  "label": "Netflix"
+ },
+ {
+  "letters": "O",
+  "app": "Opera Browser with VPN",
+  "file": "O_OperaBrowserwithVPN.jpg",
+  "bundle": "com.opera.OperaTouch",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/opera-browser-with-vpn/id1411869974",
+  "term": "opera browser",
+  "label": "Opera"
+ },
+ {
+  "letters": "P",
+  "app": "Pinterest: Lifestyle Ideas",
+  "file": "P_Pinterest.jpg",
+  "bundle": "pinterest",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/pinterest-lifestyle-ideas/id429047995",
+  "term": "pinterest",
+  "label": "Pinterest"
+ },
+ {
+  "letters": "P",
+  "app": "PayPal - Send, Manage, Pay",
+  "file": "P_PayPal.jpg",
+  "bundle": "com.yourcompany.PPClient",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/paypal-send-manage-pay/id283646709",
+  "term": "paypal",
+  "label": "PayPal"
+ },
+ {
+  "letters": "Q",
+  "app": "Quora",
+  "file": "Q_Quora.jpg",
+  "bundle": "com.quora.app.mobile",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/quora/id456034437",
+  "term": "quora",
+  "label": "Quora"
+ },
+ {
+  "letters": "Q",
+  "app": "Quizlet: AI-powered flashcards",
+  "file": "Q_Quizlet.jpg",
+  "bundle": "com.quizlet.quizlet",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/quizlet-ai-powered-flashcards/id546473125",
+  "term": "quizlet",
+  "label": "Quizlet"
+ },
+ {
+  "letters": "R",
+  "app": "Revolut — Mobile Finance",
+  "file": "R_RevolutMobileFinance.jpg",
+  "bundle": "com.revolut.revolut",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/revolut-mobile-finance/id932493382",
+  "term": "revolut",
+  "label": "Revolut"
+ },
+ {
+  "letters": "S",
+  "app": "Shazam: Find Music & Concerts",
+  "file": "S_Shazam.jpg",
+  "bundle": "com.shazam.Shazam",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/shazam-find-music-concerts/id284993459",
+  "term": "shazam",
+  "label": "Shazam"
+ },
+ {
+  "letters": "S",
+  "app": "Shopify: Sell. Run a business.",
+  "file": "S_Shopify.jpg",
+  "bundle": "com.jadedpixel.shopify",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/shopify-sell-run-a-business/id371294472",
+  "term": "shopify",
+  "label": "Shopify"
+ },
+ {
+  "letters": "T",
+  "app": "Tumblr: Social Media & Art",
+  "file": "T_Tumblr.jpg",
+  "bundle": "com.tumblr.tumblr",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/tumblr-social-media-art/id305343404",
+  "term": "tumblr",
+  "label": "Tumblr"
+ },
+ {
+  "letters": "T",
+  "app": "Tesla",
+  "file": "T_Tesla.jpg",
+  "bundle": "com.teslamotors.TeslaApp",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/tesla/id582007913",
+  "term": "tesla",
+  "label": "Tesla"
+ },
+ {
+  "letters": "U",
+  "app": "UNiDAYS: Student Discount App",
+  "file": "U_UNiDAYS.jpg",
+  "bundle": "com.myunidays.UNiDAYS",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/unidays-student-discount-app/id599608562",
+  "term": "unidays",
+  "label": "UNiDAYS"
+ },
+ {
+  "letters": "U",
+  "app": "Udemy Online Video Courses",
+  "file": "U_UdemyOnlineVideoCourses.jpg",
+  "bundle": "com.udemy",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/udemy-online-video-courses/id562413829",
+  "term": "udemy",
+  "label": "Udemy"
+ },
+ {
+  "letters": "V",
+  "app": "Vimeo",
+  "file": "V_Vimeo.jpg",
+  "bundle": "com.vimeo",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/vimeo/id425194759",
+  "term": "vimeo",
+  "label": "Vimeo"
+ },
+ {
+  "letters": "V",
+  "app": "Venmo",
+  "file": "V_Venmo.jpg",
+  "bundle": "net.kortina.labs.Venmo",
+  "store": "us",
+  "url": "https://apps.apple.com/us/app/venmo/id351727428",
+  "term": "venmo",
+  "label": "Venmo"
+ },
+ {
+  "letters": "W",
+  "app": "WordPress – Website Builder",
+  "file": "W_WordPressWebsiteBuilder.jpg",
+  "bundle": "org.wordpress",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/wordpress-website-builder/id335703880",
+  "term": "wordpress",
+  "label": "WordPress"
+ },
+ {
+  "letters": "W",
+  "app": "Wikipedia",
+  "file": "W_Wikipedia.jpg",
+  "bundle": "org.wikimedia.wikipedia",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/wikipedia/id324715238",
+  "term": "wikipedia",
+  "label": "Wikipedia"
+ },
+ {
+  "letters": "W",
+  "app": "Wattpad - Read & Write Stories",
+  "file": "W_Wattpad.jpg",
+  "bundle": "com.fivemobile.wattpad",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/wattpad-read-write-stories/id306310789",
+  "term": "wattpad",
+  "label": "Wattpad"
+ },
+ {
+  "letters": "X",
+  "app": "X",
+  "file": "X_X.jpg",
+  "bundle": "com.atebits.Tweetie2",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/x/id333903271",
+  "term": "x twitter",
+  "label": "X"
+ },
+ {
+  "letters": "X",
+  "app": "XBOX",
+  "file": "X_XBOX.jpg",
+  "bundle": "com.microsoft.smartglass",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/xbox/id736179781",
+  "term": "xbox",
+  "label": "Xbox"
+ },
+ {
+  "letters": "Y",
+  "app": "Yahoo Mail - Organised Email",
+  "file": "Y_YahooMail.jpg",
+  "bundle": "com.yahoo.Aerogram",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/yahoo-mail-organised-email/id577586159",
+  "term": "yahoo",
+  "label": "Yahoo Mail"
+ },
+ {
+  "letters": "Z",
+  "app": "Zillow Real Estate & Rentals",
+  "file": "Z_ZillowRealEstateRentals.jpg",
+  "bundle": "com.zillow.ZillowMap",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/zillow-real-estate-rentals/id310738695",
+  "term": "zillow",
+  "label": "Zillow"
+ },
+ {
+  "letters": "Z",
+  "app": "ZEDGE™ Wallpapers & Ringtones",
+  "file": "Z_ZEDGEWallpapersRingtones.jpg",
+  "bundle": "net.zedge.wallpapers",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/zedge-wallpapers-ringtones/id1086101495",
+  "term": "zedge",
+  "label": "ZEDGE"
+ },
+ {
+  "letters": "BS",
+  "app": "Brawl Stats for Brawl Stars",
+  "file": "BS_BrawlStatsforBrawlStars.jpg",
+  "bundle": "com.overwolf.brawlstats",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/brawl-stats-for-brawl-stars/id1433889837",
+  "term": "brawl stats",
+  "label": "Brawl Stats"
+ },
+ {
+  "letters": "Ps",
+  "app": "Adobe Photoshop: Photo Editor",
+  "file": "Ps_AdobePhotoshop.jpg",
+  "bundle": "com.adobe.photoshop.ios",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/adobe-photoshop-photo-editor/id1457771281",
+  "term": "adobe photoshop",
+  "label": "Photoshop"
+ },
+ {
+  "letters": "O2",
+  "app": "My O2 - UK Offers, Data, Bills",
+  "file": "O2_MyO2.jpg",
+  "bundle": "uk.co.o2.myo2",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/my-o2-uk-offers-data-bills/id325533754",
+  "term": "my o2",
+  "label": "My O2",
+  "also": [
+   "O"
+  ]
+ },
+ {
+  "letters": "VW",
+  "app": "Volkswagen",
+  "file": "VW_Volkswagen.jpg",
+  "bundle": "com.volkswagen.WeConnect.production",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/volkswagen/id1517566572",
+  "term": "volkswagen",
+  "label": "Volkswagen"
+ },
+ {
+  "letters": "UPS",
+  "app": "UPS",
+  "file": "UPS_UPS.jpg",
+  "bundle": "com.ups.m.iphone",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/ups/id336377331",
+  "term": "ups",
+  "label": "UPS"
+ },
+ {
+  "letters": "ESPN",
+  "term": "espn",
+  "app": "ESPN: Live Sports & Scores",
+  "file": "ESPN_ESPN.jpg",
+  "bundle": "com.espn.ScoreCenter",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/espn-live-sports-scores/id317469184",
+  "label": "ESPN"
+ },
+ {
+  "letters": "M",
+  "term": "gmail",
+  "app": "Gmail - Email by Google",
+  "file": "M_Gmail.jpg",
+  "bundle": "com.google.Gmail",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/gmail-email-by-google/id422689480",
+  "label": "Gmail"
+ },
+ {
+  "letters": "N",
+  "term": "notion",
+  "app": "Notion: notes, tasks, AI",
+  "file": "N_Notion.jpg",
+  "bundle": "notion.id",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/notion-notes-tasks-ai/id1232780281",
+  "label": "Notion"
+ },
+ {
+  "letters": "Lr",
+  "term": "lightroom",
+  "app": "Lightroom Photo Editor & Video",
+  "file": "Lr_LightroomPhotoEditorVide.jpg",
+  "bundle": "com.adobe.lrmobilephone",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/lightroom-photo-editor-video/id878783582",
+  "label": "Lightroom"
+ },
+ {
+  "letters": "Fr",
+  "term": "adobe fresco",
+  "app": "Adobe Fresco: Draw & Paint App",
+  "file": "Fr_AdobeFresco.jpg",
+  "bundle": "com.adobe.fresco.ios",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/adobe-fresco-draw-paint-app/id1458660369",
+  "label": "Fresco"
+ },
+ {
+  "letters": "BT",
+  "term": "my bt",
+  "app": "My BT",
+  "file": "BT_MyBT.jpg",
+  "bundle": "com.bt.mybt",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/my-bt/id979618672",
+  "label": "My BT"
+ },
+ {
+  "letters": "HP",
+  "term": "hp smart",
+  "app": "HP",
+  "file": "HP_HP.jpg",
+  "bundle": "com.hp.printer.control",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/hp/id469284907",
+  "label": "HP"
+ },
+ {
+  "letters": "CNN",
+  "term": "cnn",
+  "app": "CNN: Live & Breaking News",
+  "file": "CNN_CNN.jpg",
+  "bundle": "com.cnn.iphone",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/cnn-live-breaking-news/id331786748",
+  "label": "CNN"
+ },
+ {
+  "letters": "EE",
+  "term": "my ee",
+  "app": "EE: Mobile, broadband & tech",
+  "file": "EE_EE.jpg",
+  "bundle": "uk.co.ee.MyEE",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/ee-mobile-broadband-tech/id567457151",
+  "label": "EE"
+ },
+ {
+  "letters": "E",
+  "term": "eurofans",
+  "app": "Eurofans Radio",
+  "file": "E_EurofansRadio.jpg",
+  "bundle": "gr.radio.eurofansradio",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/eurofans-radio/id1190933313",
+  "label": "Eurofans"
+ },
+ {
+  "letters": "IG",
+  "term": "ig trading",
+  "app": "IG: Trading. Investing. Crypto",
+  "file": "IG_IG.jpg",
+  "bundle": "com.igmarkets.ideal",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/ig-trading-investing-crypto/id406492428",
+  "label": "IG"
+ },
+ {
+  "letters": "AA",
+  "term": "the aa",
+  "app": "The AA",
+  "file": "AA_TheAA.jpg",
+  "bundle": "com.theaa.theaa",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/the-aa/id405476192",
+  "label": "The AA"
+ },
+ {
+  "letters": "EN",
+  "term": "enuygun",
+  "app": "ENUYGUN: Uçak Otel Otobüs Araç",
+  "file": "EN_ENUYGUN.jpg",
+  "bundle": "com.mobilatolye.EnUygun",
+  "store": "gb",
+  "url": "https://apps.apple.com/gb/app/enuygun-u%C3%A7ak-otel-otob%C3%BCs-ara%C3%A7/id669210250",
+  "label": "ENUYGUN"
+ }
+]
