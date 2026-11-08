@@ -53,6 +53,11 @@
   #set .row span { width: 96px; color: #ccc; } #set .row input[type=range] { flex: 1; } #set .row b { width: 40px; text-align: right; font-weight: 500; }
   #set .btn { display: inline-block; padding: 11px 16px; border-radius: 12px; background: #2c2c30; color: #fff; border: 0; font-size: 15px; margin: 4px 6px 4px 0; }
   #set .btn.gold { background: #c9a227; color: #111; font-weight: 600; }
+  #check { position: fixed; inset: 0; background: #000 center / 100% 100% no-repeat; display: none; }
+  #check.on { display: block; }
+  #check i { position: absolute; border: 2px solid #ffd60a; border-radius: 22.5%; }
+  #check div { position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 40px); text-align: center;
+    color: #fff; font-size: 15px; text-shadow: 0 1px 4px #000; }
   #set .cards { font-size: 14px; color: #bbb; line-height: 1.6; }
 </style>
 </head>
@@ -75,7 +80,11 @@
   <label class="btn gold">Choose wallpaper<input type="file" accept="image/*" id="wallFile" hidden></label>
   <button class="btn" id="wallClear">Plain dark</button>
   <h2>Layout</h2>
-  <p>Match the icons to your real home screen: tap "Preview", compare with a screenshot, nudge.</p>
+  <p><b>Automatic:</b> take a screenshot of a home screen page with full rows of apps (side button + volume up),
+    then pick it here. AIcons finds where your icons sit.</p>
+  <label class="btn gold">Match my home screen<input type="file" accept="image/*" id="shotFile" hidden></label>
+  <p id="matchMsg"></p>
+  <p>Or by hand: tap "Preview", compare with your real home screen, nudge.</p>
   <div class="row"><span>From top</span><input type="range" id="top" min="40" max="260" step="1"><b></b></div>
   <div class="row"><span>Row gap</span><input type="range" id="rowPitch" min="70" max="120" step=".5"><b></b></div>
   <div class="row"><span>Column gap</span><input type="range" id="colPitch" min="65" max="100" step=".5"><b></b></div>
@@ -91,8 +100,9 @@
   <p style="margin-top:24px"><button class="btn gold" id="done">Done</button></p>
 </div>
 
+<div id="check"></div>
 <script>
-const VERSION = "0.1";
+const VERSION = "0.2";
 document.getElementById('ver').textContent = 'v' + VERSION;
 const $ = s => document.querySelector(s);
 
@@ -133,7 +143,7 @@ function screen(value, suit) {
 const canSpell = (v, s) => { const ok = splits(v).length && splits(s).length; return ok && !!screen(v, s); };
 
 // ---- layout (points; defaults measured from an iPhone 18 Pro home screen, 402 wide; scaled to this phone)
-const DEF = {top: 132, rowPitch: 88.3, colPitch: 81.5, size: 55.5, labelGap: 5};
+const DEF = {top: 90.5, rowPitch: 100.5, colPitch: 92.5, size: 63.5, labelGap: 5};
 let L = {...DEF}; try { Object.assign(L, JSON.parse(localStorage.getItem('aiLayout') || '{}')); } catch (e) {}
 const save = () => { try { localStorage.setItem('aiLayout', JSON.stringify(L)); } catch (e) {} };
 let shown = null;   // the screen on show: [[slot]]
@@ -202,6 +212,62 @@ function openSettings() {
 }
 $('#done').onclick = () => $('#set').classList.remove('on');
 $('#preview').onclick = () => { shown = screen('QUEEN', 'CLUBS') || screen('ACE', 'CLUBS'); draw(); $('#set').classList.remove('on'); };
+// ---- match the layout from a screenshot of the real home screen. Icons have strong edges against the wallpaper:
+// sideways, the edge profile peaks at the 8 icon sides (4 columns, centred) → icon size and column gap; up and down,
+// at each row's top and bottom → first row and row gap. Measured in 402-wide units, like the layout itself.
+function matchShot(img) {
+  const W = 804, H = Math.round(img.height * W / img.width), u = W / 402;          // (2 px a unit: half-unit precision)
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, W, H);
+  const d = g.getImageData(0, 0, W, H).data;
+  const at = (x, y) => (y * W + x) * 4;
+  const diff = (a, b) => Math.abs(d[a] - d[b]) + Math.abs(d[a + 1] - d[b + 1]) + Math.abs(d[a + 2] - d[b + 2]);
+  const y0 = Math.round(H * 0.07), y1 = Math.round(H * 0.8);                      // (not the status bar or the dock)
+  const V = new Float32Array(W);
+  for (let y = y0; y < y1; y++) for (let x = 1; x < W - 1; x++) V[x] += diff(at(x + 1, y), at(x - 1, y));
+  const pk = (A, i) => { i = Math.round(i); let m = 0; for (let k = i - 1; k <= i + 1; k++) if (k >= 0 && k < A.length) m = Math.max(m, A[k]); return m; };
+  let best = {score: -1};
+  for (let size = 44; size <= 76; size += 0.5) for (let pitch = size + 10; pitch <= 100; pitch += 0.5) {
+    let sc = 0;
+    for (let k = 0; k < 4; k++) { const cx = W / 2 + (k - 1.5) * pitch * u; sc += Math.min(pk(V, cx - size * u / 2), pk(V, cx + size * u / 2)); }   // (both sides, or it's not an icon)
+    if (sc > best.score) best = {score: sc, size, pitch};
+  }
+  const {size, pitch} = best;
+  const Hp = new Float32Array(H);
+  for (let k = 0; k < 4; k++) {
+    const cx = W / 2 + (k - 1.5) * pitch * u, xa = Math.round(cx - size * u * 0.4), xb = Math.round(cx + size * u * 0.4);
+    for (let y = 1; y < H - 1; y++) for (let x = xa; x < xb; x++) Hp[y] += diff(at(x, y + 1), at(x, y - 1));
+  }
+  let bestV = {score: -1};
+  for (let top = y0 / u; top <= 260; top += 0.5) for (let rp = 70; rp <= 120; rp += 0.5) {
+    let sc = 0;
+    for (let j = 0; (top + j * rp + size) * u < y1; j++) sc += Math.min(pk(Hp, (top + j * rp) * u), pk(Hp, (top + j * rp + size) * u));
+    if (sc > bestV.score) bestV = {score: sc, top, rp};
+  }
+  return {size, colPitch: pitch, top: bestV.top, rowPitch: bestV.rp};
+}
+function showCheck(url, m) {
+  const ch = $('#check'), k = innerWidth / 402; ch.style.backgroundImage = `url("${url}")`; ch.innerHTML = '';
+  for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
+    const i = document.createElement('i'), s = m.size * k;
+    i.style.cssText = `width:${s}px;height:${s}px;left:${innerWidth / 2 + (c - 1.5) * m.colPitch * k - s / 2}px;top:${(m.top + r * m.rowPitch) * k}px`;
+    ch.appendChild(i);
+  }
+  const t = document.createElement('div'); t.textContent = 'Yellow boxes should sit on your icons. Tap to go back.'; ch.appendChild(t);
+  ch.classList.add('on'); ch.onclick = () => ch.classList.remove('on');
+}
+$('#shotFile').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const url = URL.createObjectURL(f), img = new Image();
+  $('#matchMsg').textContent = 'Looking for your icons…';
+  img.onload = () => setTimeout(() => {
+    const m = matchShot(img);
+    Object.assign(L, m); save(); openSettings(); draw();
+    $('#matchMsg').textContent = `Matched: icons ${m.size}, columns ${m.colPitch} apart, first row at ${m.top}, rows ${m.rowPitch} apart.`;
+    showCheck(url, m); e.target.value = '';
+  }, 30);
+  img.src = url;
+};
 $('#resetLayout').onclick = () => { L = {...DEF}; save(); openSettings(); draw(); };
 
 // ---- wallpaper: kept in IndexedDB (too big for localStorage)
