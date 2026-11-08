@@ -114,7 +114,7 @@
     <div class="bar"><button id="eShow">View: See-through</button><button id="eMove">Move panel</button><button class="gold" id="eDone">Done</button></div></div>
 </div>
 <script>
-const VERSION = "0.4";
+const VERSION = "0.5";
 document.getElementById('ver').textContent = 'v' + VERSION;
 const $ = s => document.querySelector(s);
 
@@ -311,10 +311,11 @@ const VIEWS = [['see', 'See-through'], ['boxes', 'Boxes'], ['solid', 'Solid icon
 let view = 'see', sample = null;
 function drawBoxes() {
   const b = $('#boxes'), k = innerWidth / 402, s = L.size * k; b.innerHTML = '';
-  b.style.opacity = view === 'see' ? 0.5 : 1;
   if (view !== 'boxes') {
     if (!sample) { const pool = shuffle(ICONS); sample = Array.from({length: 6}, (_, r) => pool.slice(r * 4, r * 4 + 4)); }
-    draw(b, sample); return;
+    draw(b, sample);
+    if (view === 'solid') return;
+    b.querySelectorAll('.slot').forEach(el => el.style.opacity = 0.5);         // (see-through, with the yellow outlines on top)
   }
   for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
     const i = document.createElement('i'), x = innerWidth / 2 + (c - 1.5) * L.colPitch * k - s / 2, y = (L.top + r * L.rowPitch) * k;
